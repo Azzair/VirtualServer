@@ -18,6 +18,7 @@ func main() {
 	defer li.Close()
 	for {
 		conn, err := li.Accept()
+		log.Println("New connection: ", conn.RemoteAddr())
 		if err != nil {
 			log.Fatalln(err)
 		}
