@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"log"
 	"net"
+	"time"
 )
 
 func main() {
@@ -26,6 +27,10 @@ func main() {
 
 func hendler(conn net.Conn) {
 	defer conn.Close()
+	err := conn.SetDeadline(time.Now().Add(time.Second * 10))
+	if err != nil {
+		log.Fatalln(err)
+	}
 	log.Println("New connection: ", conn.RemoteAddr())
 	scan := bufio.NewScanner(conn)
 	for scan.Scan() {
